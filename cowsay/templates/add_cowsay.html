@@ -1,0 +1,18 @@
+<div>
+    <a href="/">Home</a>
+    <a href="/history/">Recent History</a>
+</div>
+<h1>Test CowSay</h1>
+<form action="/add_cowsay/" method="post">
+    {% csrf_token%}
+    {{ form.as_p }}
+    <div>
+        <input type="submit" value="Add Title" id="button" />
+    </div>
+</form>
+
+{% if messages %}
+{% for message in messages %}
+<p>{{ message }}</p>
+{% endfor %}
+{% endif %}
