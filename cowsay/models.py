@@ -1,8 +1,8 @@
 from django.db import models
 
 
-class CowSay(models.Model):
-    title = models.CharField(max_length=50)
+class Cowsay(models.Model):
+    cowsay_string = models.TextField()
 
     def __str__(self):
-        return self.title
+        return self.cowsay_string

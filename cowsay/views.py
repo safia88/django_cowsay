@@ -1,31 +1,37 @@
-from django.shortcuts import render, reverse, HttpResponseRedirect
-from cowsay.models import CowSay
-from cowsay.forms import AddCowSayForm
-from django.shortcuts import redirect
-from django.contrib import messages
+from django.shortcuts import render, redirect
+from cowsay.forms import CowsayForm
+from cowsay.models import Cowsay
+import subprocess as sp
+import platform
 
 
-def add_cowsay(request):
-    html = "add_cowsay.html"
-    form = None
-    # message = None
-    if request.method == "POST":
-        form = AddCowSayForm(request.POST)
+def insert_view(request):
+    if request.method == 'POST':
+        form = CowsayForm(request.POST)
         if form.is_valid():
-            data = form.cleaned_data
-            CowSay.objects.create(
-                title=data["title"]
-            )
-            # message = 'Test'
-            messages.success(request, 'Form submission successful')
-            form = AddCowSayForm()
-            return redirect('/')
-            # form = AddCowSayForm()
-            # return HttpResponseRedirect(reverse('homepage'))
-    else:
-        form = AddCowSayForm()
-    return render(request, html, {"form": form})
+            name = request.POST['cowsay_string']
+            form.save()
+            if platform.system() == "Windows":
+                expand_shell = True
+            else:
+                expand_shell = False
+            s = sp.check_output(
+                ['cowsay', name], universal_newlines=True, stderr=sp.STDOUT, shell=expand_shell)
+            return render(request, 'cowsay.html', {'name': s})
+    return render(request, 'cowsay.html')
 
 
 def history(request):
-    return render(request, 'history.html', {'list': CowSay.objects.all()})
+    cowsay_list = Cowsay.objects.values('cowsay_string').order_by('-id')[:10]
+    newList = []
+    if platform.system() == "Windows":
+        expand_shell = True
+    else:
+        expand_shell = False
+
+    for item in cowsay_list:
+        s = sp.check_output(
+            ['cowsay', item['cowsay_string']], universal_newlines=True, stderr=sp.STDOUT, shell=expand_shell)
+        newList.append(s)
+
+    return render(request, 'history.html', {'cowsay_list': newList})

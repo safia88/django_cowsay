@@ -1,6 +1,8 @@
+from cowsay.models import Cowsay
 from django import forms
-from cowsay.models import CowSay
 
 
-class AddCowSayForm(forms.Form):
-    title = forms.CharField(max_length=50)
+class CowsayForm(forms.ModelForm):
+    class Meta:
+        model = Cowsay
+        fields = '__all__'

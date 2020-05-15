@@ -20,13 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-f3r8_1hul6=14+34h0h66fs5r%o!vnh+7ze*2u92!3_)^@q@r'
+SECRET_KEY = '9zspvjq)+%*q@^x1iqqhydw&e6p^#q9xjfmh(1h=yosad&p+jq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-SITE_URL = "http://127.0.0.1:8000"
 
 
 # Application definition
@@ -56,7 +55,7 @@ ROOT_URLCONF = 'cowsay.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'cowsay', 'templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

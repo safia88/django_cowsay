@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+
+<body>
+    <button><a href="/">Home</a></button>
+    <button><a href="/history/">History</a></button>
+    <br>
+    <br>
+    {% if name %}
+    <pre>
+        {{ name}}
+    </pre>
+    <br>
+    <br>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        Enter the Text: <input type="text" name="cowsay_string" id="cowsay_string" />
+        <input type="submit" value="Submit" />
+    </form>
+</body>
+
+</html>

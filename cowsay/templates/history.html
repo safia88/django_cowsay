@@ -1,8 +1,32 @@
-<div>
-    <a href="/">Home</a>
-    <a href="/history/">Recent History</a>
-</div>
-<h1>History</h1>
-{% for item in list %}
-<p>{{ item.title }}</p>>
-{% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>History</title>
+</head>
+
+<body>
+    <button><a href="/">Home</a></button>
+    <button><a href="/history/">History</a></button>
+    <br>
+    {% if cowsay_list %}
+    <h4>Last 10 history</h4>
+    {%for name in cowsay_list%}
+    <div style="width:auto; float: left;">
+        <fieldset>
+            <legend>Counter: {{ forloop.counter }}</legend>
+            <pre>
+                {{ name}}
+            </pre>
+        </fieldset>
+    </div>
+
+    {%endfor%}
+    {% else %}
+    <h5>No data found</h5>
+    {% endif %}
+
+</body>
+
+</html>
